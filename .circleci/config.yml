@@ -4,25 +4,18 @@ version: 2.1
 orbs:
   # Declare a dependency on the welcome-orb
   welcome: circleci/welcome-orb@0.4.1
-
-commands:
-  print_pipeline_id:
-    description: "A job to print the Circle CI Workflow ID to console"
-    parameters:
-      pipeline_id:
-        type: string
-        default: $CIRCLE_WORKFLOW_ID
-    steps:
-      - run: echo << parameters.pipeline_id >>
       
 # Declare jobs
 jobs:
-  print_pipeline_id_job:
+  fail_job:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - print_pipeline_id:
-          pipeline_id: $CIRCLE_WORKFLOW_ID
+      - run: return 1
+      - run:
+          name: Notify fail job
+          command: echo "Your job failed!"
+          when: on_fail
 
 # Orchestrate or schedule a set of jobs
 workflows:
