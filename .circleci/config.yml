@@ -11,7 +11,7 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: mkdir -p tmp/workspace -m chmod 777
+      - run: mkdir -m 777 -p tmp/workspace
       - run: echo "hello world" > tmp/workspace/output.txt
       - persist_to_workspace:
           root: tmp/workspace
